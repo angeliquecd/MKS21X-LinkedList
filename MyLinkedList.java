@@ -14,34 +14,38 @@ public class MyLinkedList{
     if (size==0){//special case
       start=new Node(value, null, null);
       end=start;
+      size++;
       return true;
     }
     else{
     Node previously= end.prev();
-    end= new Node(value,null,);
-    start= new Node(start.getData(),end,null);
-    System.out.println(end.getData());
+    end= new Node(value,null,previously);
     size++;
     return true;}
-    return true;
   }
   public String toString(){
-    String value="done";
     Node current=start;
-    while(current.getNext()!=null){
+    String value="";
+    while(current.next()!=null){
       value+=current.getData();
-      current=current.getNext();
+      current=current.next();
     }
-    return value;
+    return value+current.toString();
   }
   public Integer get(int index){
 //must add exceptions
+return 4;
   }
   public Integer set(int index, int value){
 //must add exceptions
+return 4;
   }
-  public boolean contains(Integer value){}
-  public int indexOf(Integer value){}
+  public boolean contains(Integer value){
+    return true;
+  }
+  public int indexOf(Integer value){
+    return 4;
+  }
   public void add (int index, Integer value){
     //special cases for start and end
   }
@@ -57,7 +61,7 @@ public class MyLinkedList{
       prev=prev1;
     }
     public Node(){
-      data=null;
+      data=0;
       next=null;
       prev=null;
     }
@@ -80,7 +84,7 @@ public class MyLinkedList{
       prev=other;
     }
     public String toString(){
-      value=""+data;
+      String value=""+data;
       return value;
     }
   }
