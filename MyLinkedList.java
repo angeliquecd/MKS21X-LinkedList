@@ -9,7 +9,9 @@ public class MyLinkedList{
   public int size(){
     return size;
   }
-
+public Node getEnd(){
+  return end;
+}
   public boolean add(Integer value){
     if (size==0){//special case
       start=new Node(value, null, null);
@@ -17,20 +19,27 @@ public class MyLinkedList{
       size++;
       return true;
     }
+    if (size==1){
+      end=new Node(value, null, start);
+      start= new Node(start.getData(),end, null);
+      size++;
+      return true;
+    }
     else{
-    Node previously= end.prev();
-    end= new Node(value,null,previously);
-    size++;
-    return true;}
+      Node last = end;
+      end=new Node(value, null, last);
+      last.setNext(end);
+      size++;
+      return true;}
   }
   public String toString(){
     Node current=start;
-    String value="";
+    String value="[";
     while(current.next()!=null){
-      value+=current.getData();
+      value+=current.toString()+", ";
       current=current.next();
     }
-    return value+current.toString();
+    return value+current.toString()+"]";
   }
   public Integer get(int index){
 //must add exceptions
