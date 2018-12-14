@@ -17,15 +17,8 @@ public Node getEnd(){
       start=new Node(value, null, null);
       end=start;
       size++;
-      return true;
-    }
-    if (size==1){
-      end=new Node(value, null, start);
-      start= new Node(start.getData(),end, null);
-      size++;
-      return true;
-    }
-    else{
+      return true;}
+    else{//for all the rest
       Node last = end;
       end=new Node(value, null, last);
       last.setNext(end);
