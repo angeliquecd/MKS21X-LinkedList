@@ -9,9 +9,6 @@ public class MyLinkedList{
   public int size(){
     return size;
   }
-public Node getEnd(){
-  return end;
-}
   public boolean add(Integer value){
     if (size==0){//special case
       start=new Node(value, null, null);
@@ -19,9 +16,9 @@ public Node getEnd(){
       size++;
       return true;}
     else{//for all the rest
-      Node last = end;
-      end=new Node(value, null, last);
-      last.setNext(end);
+      Node last = end;//saves penultimate value
+      end=new Node(value, null, last);//sets up last element
+      last.setNext(end);//bridges penultimate and last
       size++;
       return true;}
   }
@@ -35,6 +32,17 @@ public Node getEnd(){
     return value+current.toString()+"]";
   }
   public Integer get(int index){
+    try{
+    if (index<0 || index>=size) throw new IllegalArgumentException();
+    Node thatone= start;
+    for (int i=0;i<index;i++){
+      thatone=thatone.next();
+    }
+    return thatone.getData();
+  }
+    catch (IllegalArgumentException e){
+      System.out.println("That index is out of bounds.");
+    }
 //must add exceptions
 return 4;
   }
