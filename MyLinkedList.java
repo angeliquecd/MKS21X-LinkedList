@@ -31,23 +31,36 @@ public class MyLinkedList{
     }
     return value+current.toString()+"]";
   }
-  public Integer get(int index){
+  private Node getNthnode(int index){
     try{
     if (index<0 || index>=size) throw new IllegalArgumentException();
     Node thatone= start;
     for (int i=0;i<index;i++){
       thatone=thatone.next();
     }
-    return thatone.getData();
+    return thatone;
   }
     catch (IllegalArgumentException e){
       System.out.println("That index is out of bounds.");
     }
+    return null;
+  }
+  public Integer get(int index){
+    try{
+    if (index<0 || index>=size) throw new IllegalArgumentException();
+    Node thatone= start;
+    for (int i=0;i<index;i++){
+      thatone=thatone.next();}
+    return thatone.getData();
+  }
+    catch (IllegalArgumentException e){
+      System.out.println("That index is out of bounds.");}
 //must add exceptions
-return 4;
+return 10;
   }
   public Integer set(int index, int value){
 //must add exceptions
+Node workingwith= this.getNthnode(index);
 return 4;
   }
   public boolean contains(Integer value){
