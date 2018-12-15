@@ -43,8 +43,8 @@ public class MyLinkedList{
     return thatone;
   }
     catch (IllegalArgumentException e){
-      System.out.println("That index is out of bounds.");
-      System.exit(1);
+      System.out.println("That getNthnode index is out of bounds.");
+    //  System.exit(1);
     }
     return null;//should not happen
   }
@@ -57,20 +57,32 @@ public class MyLinkedList{
     return thatone.getData();
   }
     catch (IllegalArgumentException e){
-      System.out.println("That index is out of bounds.");
-      System.exit(1);}
+      System.out.println("That get index is out of bounds.");
+      }
 return -1;//should not happen
   }
+
   public Integer set(int index, int value){
 //must add exceptions
-Node workingwith= this.getNthnode(index);
-int oldata=workingwith.getData();
-workingwith.setData(value);
-return oldata;
+try{
+if (index>size||index<0) throw new IllegalArgumentException();
+Node workingwith= this.getNthnode(index);//finds node to work with
+int oldata=workingwith.getData();//saves olddata for return
+workingwith.setData(value);//sets data to new value
+return oldata;}//returns old value
+catch (IllegalArgumentException e){//eror handling
+  System.out.println("That set index is out of bounds.");
+//  e.printStackTrace();
   }
+  return -1;//should not happen
+  }
+
   public boolean contains(Integer value){
-    return true;
+    for (int i=0;i<size;i++){
+    if (this.get(i)==value) return true;}
+    return false;
   }
+
   public int indexOf(Integer value){
     return 4;
   }
