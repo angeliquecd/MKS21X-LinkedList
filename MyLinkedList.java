@@ -9,38 +9,64 @@ public class MyLinkedList{
   public int size(){
     return size;
   }
-
   public boolean add(Integer value){
     if (size==0){//special case
       start=new Node(value, null, null);
       end=start;
       size++;
-      return true;
-    }
-    else{
-    Node previously= end.prev();
-    System.out.println(previously.toString());
-    end= new Node(value,null,previously);
-    System.out.println(end.toString());
-    size++;
-    return true;}
+      return true;}
+    else{//for all the rest
+      Node last = end;//saves penultimate value
+      end=new Node(value, null, last);//sets up last element
+      last.setNext(end);//bridges penultimate and last
+      size++;
+      return true;}
   }
   public String toString(){
     Node current=start;
-    String value="";
+    String value="[";
     while(current.next()!=null){
-      value+=current.getData();
+      value+=current.toString()+", ";
       current=current.next();
     }
-    return value+current.toString();
+    return value+current.toString()+"]";
   }
-  public Integer get(int index){
-//must add exceptions
-return 4;
+  private Node getNthnode(int index){
+    try{
+    if (index<0 || index>=size) throw new IllegalArgumentException();//exception handled
+
+    Node thatone= start;//loops through until it finds the index
+    //this would be for the starting index (thatone index =0)
+    for (int i=0;i<index;i++){
+      thatone=thatone.next();
+    }
+    return thatone;
+  }
+    catch (IllegalArgumentException e){
+      System.out.println("That index is out of bounds.");
+      System.exit(1);
+    }
+    return null;//should not happen
+  }
+  public Integer get(int index){//identical to getNthnode but returns data
+    try{
+    if (index<0 || index>=size) throw new IllegalArgumentException();
+    Node thatone= start;
+    for (int i=0;i<index;i++){
+      thatone=thatone.next();}
+    return thatone.getData();
+  }
+    catch (IllegalArgumentException e){
+      System.out.println("That index is out of bounds.");
+      System.exit(1);}
+return -1;//should not happen
   }
   public Integer set(int index, int value){
 //must add exceptions
-return 4;
+Node workingwith= this.getNthnode(index);
+int oldata=workingwith.getData();
+workingwith.setData(value);
+return oldata;
   }
   public boolean contains(Integer value){
     return true;
