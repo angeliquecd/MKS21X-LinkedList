@@ -112,8 +112,59 @@ catch (IllegalArgumentException e){//eror handling
     catch (IllegalArgumentException e){//eror handling
       System.out.println("That set index is out of bounds.");}
   }
-  public void remove(int index, Integer value){
-    //special case for start and end
+  public void remove(int index){
+    int toreturn = -1;//should never return this
+  try{
+  if (index>size||index<0) throw new IllegalArgumentException();//error handling
+  if (index==0){//special case for start
+       Node next= start.next();
+      toreturn = start.getData();
+       start=next;//sets start to one after
+       next.setPrev(null);
+      }
+  if (index==size-1){//special case for end
+      toreturn= end.getData();
+      Node penultimate = end.prev();//sets end to one before
+      end=penultimate;
+
+      penultimate.setNext(null);}
+  if (index!=0 && index!=size-1){//otherwise
+    Node todelete= this.getNthnode(index);
+    toreturn= todelete.getData();
+    Node before = todelete.prev();
+    Node after = todelete.next();
+    before.setNext(after);
+    after.setPrev(before);}
+  size--;//reduces size
+  }
+  catch (IllegalArgumentException e){//eror handling
+    System.out.println("That remove index is out of bounds.");}
+System.out.println(""+toreturn);
+  }
+
+  public boolean remove (Integer value){
+    int index = this.indexOf(value);
+    if (index==-1) return false;
+    Node todelete=this.getNthnode(index);
+    if (index==0){//special case for start
+         Node next= start.next();
+        int toreturn = start.getData();
+         start=next;//sets start to one after
+         next.setPrev(null);
+        }
+    if (index==size-1){//special case for end
+        int toreturn= end.getData();
+        Node penultimate = end.prev();//sets end to one before
+        end=penultimate;
+        penultimate.setNext(null);}
+    if (index!=0&& index!=size-1){//otherwise
+      int toreturn= todelete.getData();
+      Node before = todelete.prev();
+      Node after = todelete.next();
+      before.setNext(after);
+      after.setPrev(before);}
+    size--;//reduces size
+    return true;
   }
   private class Node{
     private int data;
@@ -151,5 +202,4 @@ catch (IllegalArgumentException e){//eror handling
       return value;
     }
   }
-
 }
