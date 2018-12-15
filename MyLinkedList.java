@@ -19,7 +19,9 @@ public class MyLinkedList{
     }
     else{
     Node previously= end.prev();
+    System.out.println(previously.toString());
     end= new Node(value,null,previously);
+    System.out.println(end.toString());
     size++;
     return true;}
   }

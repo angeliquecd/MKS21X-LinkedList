@@ -1,8 +1,11 @@
 public class Driver{
   public static void main(String[] args){
-    Node start = new Node(4,null,null);
-    MyLinkedList listy = new MyLinkedList(1,start,start);
+    MyLinkedList listy = new MyLinkedList();
     listy.add(6);
     System.out.println(listy.toString());
+    listy.add(7);
+    System.out.println(listy.toString());
+    listy.add(9);
+        System.out.println(listy.toString());
   }
 }
