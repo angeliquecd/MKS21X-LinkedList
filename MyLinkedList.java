@@ -84,10 +84,33 @@ catch (IllegalArgumentException e){//eror handling
   }
 
   public int indexOf(Integer value){
-    return 4;
-  }
+      for (int i =0;i<size;i++){
+        if (value==this.get(i)) return i;
+      }
+      return -1;
+      }
   public void add (int index, Integer value){
     //special cases for start and end
+    try{
+    if (index>size||index<0) throw new IllegalArgumentException();
+    if (index==0){
+      Node next= start;
+      start= new Node(value,next,null);
+      next.setPrev(start);
+      size++;}
+    if (index==size-1){
+      this.add(value);}
+    if (index!=0&& index!=size-1){
+      Node next=this.getNthnode(index);
+      Node before=next.prev();
+      Node addition= new Node(value, next, before);
+      before.setNext(addition);
+      next.setPrev(addition);
+      size++;
+    }
+    }
+    catch (IllegalArgumentException e){//eror handling
+      System.out.println("That set index is out of bounds.");}
   }
   public void remove(int index, Integer value){
     //special case for start and end
