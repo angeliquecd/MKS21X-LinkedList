@@ -31,7 +31,7 @@ public class MyLinkedList{
     }
     return value+current.toString()+"]";
   }
-  private Node getNthnode(int index){
+private Node getNthnode(int index){
     try{
     if (index<0 || index>=size) throw new IllegalArgumentException();//exception handled
 
@@ -48,31 +48,30 @@ public class MyLinkedList{
     }
     return null;//should not happen
   }
-  public Integer get(int index){//identical to getNthnode but returns data
+public Integer get(int index){//identical to getNthnode but returns data
     try{
     if (index<0 || index>=size) throw new IllegalArgumentException();
     Node thatone= start;
     for (int i=0;i<index;i++){
-      thatone=thatone.next();}
+      thatone=thatone.next();}//loops through by index
     return thatone.getData();
   }
     catch (IllegalArgumentException e){
       System.out.println("That get index is out of bounds.");
       }
-return -1;//should not happen
+      return -1;//should not happen
   }
-
-  public Integer set(int index, int value){
-//must add exceptions
-try{
-if (index>size||index<0) throw new IllegalArgumentException();
-Node workingwith= this.getNthnode(index);//finds node to work with
-int oldata=workingwith.getData();//saves olddata for return
-workingwith.setData(value);//sets data to new value
-return oldata;}//returns old value
-catch (IllegalArgumentException e){//eror handling
+public Integer set(int index, int value){
+  //must add exceptions
+  try{
+  if (index>size||index<0) throw new IllegalArgumentException();
+  Node workingwith= this.getNthnode(index);//finds node to work with
+  int oldata=workingwith.getData();//saves olddata for return
+  workingwith.setData(value);//sets data to new value
+  return oldata;}//returns old value
+  catch (IllegalArgumentException e){//eror handling
   System.out.println("That set index is out of bounds.");
-//  e.printStackTrace();
+  //  e.printStackTrace();
   }
   return -1;//should not happen
   }
@@ -82,7 +81,6 @@ catch (IllegalArgumentException e){//eror handling
     if (this.get(i)==value) return true;}
     return false;
   }
-
   public int indexOf(Integer value){
       for (int i =0;i<size;i++){
         if (value==this.get(i)) return i;
@@ -114,32 +112,32 @@ catch (IllegalArgumentException e){//eror handling
   }
   public void remove(int index){
     int toreturn = -1;//should never return this
-  try{
-  if (index>size||index<0) throw new IllegalArgumentException();//error handling
-  if (index==0){//special case for start
+    try{
+      if (index>size||index<0) throw new IllegalArgumentException();//error handling
+      if (index==0){//special case for start
        Node next= start.next();
       toreturn = start.getData();
        start=next;//sets start to one after
        next.setPrev(null);
       }
-  if (index==size-1){//special case for end
+      if (index==size-1){//special case for end
       toreturn= end.getData();
       Node penultimate = end.prev();//sets end to one before
       end=penultimate;
 
       penultimate.setNext(null);}
-  if (index!=0 && index!=size-1){//otherwise
+      if (index!=0 && index!=size-1){//otherwise
     Node todelete= this.getNthnode(index);
     toreturn= todelete.getData();
     Node before = todelete.prev();
     Node after = todelete.next();
     before.setNext(after);
     after.setPrev(before);}
-  size--;//reduces size
+    size--;//reduces size
   }
   catch (IllegalArgumentException e){//eror handling
     System.out.println("That remove index is out of bounds.");}
-System.out.println(""+toreturn);
+    System.out.println(""+toreturn);
   }
 
   public boolean remove (Integer value){
@@ -166,7 +164,14 @@ System.out.println(""+toreturn);
     size--;//reduces size
     return true;
   }
-  private class Node{
+public void extend(MyLinkedList other){//exteends the list onto this
+      end.setNext(other.start);
+      other.start.setPrev(end);//links them
+      end=other.end;//creates new end
+      size+=other.size;//resets size
+      other.size=0;//honestly not sure why it does this
+    }
+private class Node{
     private int data;
     private Node next, prev;
     public Node (int data1, Node next1, Node prev1){
