@@ -25,11 +25,13 @@ public class MyLinkedList{
   public String toString(){
     Node current=start;
     String value="[";
+    if (size>0){
     while(current.next()!=null){
       value+=current.toString()+", ";
       current=current.next();
     }
-    return value+current.toString()+"]";
+    return value+current.toString()+"]";}
+    return value+"]";
   }
 private Node getNthnode(int index){
     try{
@@ -61,6 +63,13 @@ public Integer get(int index){//identical to getNthnode but returns data
       }
       return -1;//should not happen
   }
+public void clear(){
+  start=new Node();
+  end=start;
+//  start.setData(null);
+  size=0;
+}
+
 public Integer set(int index, int value){
   //must add exceptions
   try{
@@ -170,6 +179,8 @@ public void extend(MyLinkedList other){//exteends the list onto this
       end=other.end;//creates new end
       size+=other.size;//resets size
       other.size=0;//honestly not sure why it does this
+      MyLinkedList mover= new MyLinkedList();
+      other=mover;
     }
 private class Node{
     private int data;
