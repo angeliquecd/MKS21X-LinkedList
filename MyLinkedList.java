@@ -25,7 +25,7 @@ public class MyLinkedList{
   public String toString(){
     Node current=start;
     String value="[";
-    if (size>0){
+    if (size>0){//for empty lists, don't print zero
     while(current.next()!=null){
       value+=current.toString()+", ";
       current=current.next();
@@ -63,12 +63,6 @@ public Integer get(int index){//identical to getNthnode but returns data
       }
       return -1;//should not happen
   }
-public void clear(){
-  start=new Node();
-  end=start;
-//  start.setData(null);
-  size=0;
-}
 
 public Integer set(int index, int value){
   //must add exceptions
@@ -85,18 +79,18 @@ public Integer set(int index, int value){
   return -1;//should not happen
   }
 
-  public boolean contains(Integer value){
+public boolean contains(Integer value){
     for (int i=0;i<size;i++){
     if (this.get(i)==value) return true;}
     return false;
   }
-  public int indexOf(Integer value){
+public int indexOf(Integer value){
       for (int i =0;i<size;i++){
         if (value==this.get(i)) return i;
       }
       return -1;
       }
-  public void add (int index, Integer value){
+public void add (int index, Integer value){
     //special cases for start and end
     try{
     if (index>size||index<0) throw new IllegalArgumentException();
@@ -105,9 +99,9 @@ public Integer set(int index, int value){
       start= new Node(value,next,null);
       next.setPrev(start);
       size++;}
-    if (index==size-1){
+    else if (index==size){
       this.add(value);}
-    if (index!=0&& index!=size-1){
+    else {
       Node next=this.getNthnode(index);
       Node before=next.prev();
       Node addition= new Node(value, next, before);
@@ -119,7 +113,7 @@ public Integer set(int index, int value){
     catch (IllegalArgumentException e){//eror handling
       System.out.println("That set index is out of bounds.");}
   }
-  public void remove(int index){
+public void remove(int index){
     int toreturn = -1;//should never return this
     try{
       if (index>size||index<0) throw new IllegalArgumentException();//error handling
@@ -129,13 +123,13 @@ public Integer set(int index, int value){
        start=next;//sets start to one after
        next.setPrev(null);
       }
-      if (index==size-1){//special case for end
+      else if (index==size){//special case for end
       toreturn= end.getData();
       Node penultimate = end.prev();//sets end to one before
       end=penultimate;
 
       penultimate.setNext(null);}
-      if (index!=0 && index!=size-1){//otherwise
+      else {//otherwise
     Node todelete= this.getNthnode(index);
     toreturn= todelete.getData();
     Node before = todelete.prev();
@@ -146,7 +140,7 @@ public Integer set(int index, int value){
   }
   catch (IllegalArgumentException e){//eror handling
     System.out.println("That remove index is out of bounds.");}
-    System.out.println(""+toreturn);
+//    System.out.println(""+toreturn);
   }
 
   public boolean remove (Integer value){
