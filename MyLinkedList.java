@@ -116,18 +116,17 @@ public void add (int index, Integer value){
 public void remove(int index){
     int toreturn = -1;//should never return this
     try{
-      if (index>size||index<0) throw new IllegalArgumentException();//error handling
+      if (index>=size||index<0) throw new IllegalArgumentException();//error handling
       if (index==0){//special case for start
        Node next= start.next();
       toreturn = start.getData();
        start=next;//sets start to one after
        next.setPrev(null);
       }
-      else if (index==size){//special case for end
+      else if (index==size-1){//special case for end
       toreturn= end.getData();
       Node penultimate = end.prev();//sets end to one before
       end=penultimate;
-
       penultimate.setNext(null);}
       else {//otherwise
     Node todelete= this.getNthnode(index);
@@ -142,7 +141,6 @@ public void remove(int index){
     System.out.println("That remove index is out of bounds.");}
 //    System.out.println(""+toreturn);
   }
-
   public boolean remove (Integer value){
     int index = this.indexOf(value);
     if (index==-1) return false;
@@ -153,12 +151,12 @@ public void remove(int index){
          start=next;//sets start to one after
          next.setPrev(null);
         }
-    if (index==size-1){//special case for end
+    else if (index==size-1){//special case for end
         int toreturn= end.getData();
         Node penultimate = end.prev();//sets end to one before
         end=penultimate;
         penultimate.setNext(null);}
-    if (index!=0&& index!=size-1){//otherwise
+    else{//otherwise
       int toreturn= todelete.getData();
       Node before = todelete.prev();
       Node after = todelete.next();
@@ -207,6 +205,8 @@ private class Node{
     public void setPrev(Node other){
       prev=other;
     }
+    //public String toStringdebug(){
+    //}
     public String toString(){
       String value=""+data;
       return value;
